@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
 import { CompanyCardPreview } from "@/components/previews/CompanyCardPreview";
+import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 
 // Design data with preview components
 const designs = [
@@ -15,6 +16,14 @@ const designs = [
     description: "Expandable card with company metrics and details",
     tags: ["Card", "Dashboard", "Metrics"],
     PreviewComponent: CompanyCardPreview,
+  },
+  {
+    id: "hotel-card",
+    number: "02",
+    title: "Hotel Booking Card",
+    description: "Hotel card with amenities, pricing, and booking button",
+    tags: ["Card", "Booking", "Travel"],
+    PreviewComponent: HotelCardPreview,
   },
 ];
 
@@ -132,7 +141,7 @@ export default function Home() {
         {/* Coming soon placeholder */}
         <div className="py-8 border-b border-zinc-200">
           <div className="flex items-start gap-6">
-            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">02</span>
+            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">03</span>
             <div className="flex-1">
               <h2 className="text-xl font-medium text-zinc-300 mb-2">
                 More designs coming soon...
