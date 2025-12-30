@@ -8,6 +8,11 @@ import { CompanyCardPreview } from "@/components/previews/CompanyCardPreview";
 import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 import { BillsPaymentsPreview } from "@/components/previews/BillsPaymentsPreview";
 
+// Preview dimensions for viewport boundary detection
+const PREVIEW_HEIGHT = 400;
+const PREVIEW_WIDTH = 320;
+const PREVIEW_OFFSET = 20;
+
 // Design data with preview components
 const designs = [
   {
@@ -60,6 +65,30 @@ export default function Home() {
   }, []);
 
   const hoveredDesign = designs.find((d) => d.id === hoveredId);
+
+  // Calculate optimal preview position with viewport boundary detection
+  const viewportHeight = typeof window !== "undefined" ? window.innerHeight : 800;
+  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
+  const spaceBelow = viewportHeight - mousePosition.y;
+  const spaceAbove = mousePosition.y;
+
+  // Vertical positioning: prefer below, flip above if needed, clamp if limited
+  let previewTop: number;
+  if (spaceBelow >= PREVIEW_HEIGHT + PREVIEW_OFFSET) {
+    previewTop = mousePosition.y + PREVIEW_OFFSET;
+  } else if (spaceAbove >= PREVIEW_HEIGHT + PREVIEW_OFFSET) {
+    previewTop = mousePosition.y - PREVIEW_HEIGHT - PREVIEW_OFFSET;
+  } else {
+    previewTop = Math.max(
+      PREVIEW_OFFSET,
+      Math.min(mousePosition.y - PREVIEW_HEIGHT / 2, viewportHeight - PREVIEW_HEIGHT - PREVIEW_OFFSET)
+    );
+  }
+
+  // Horizontal positioning: prefer right, flip left if overflow
+  const previewLeft = mousePosition.x + PREVIEW_OFFSET + PREVIEW_WIDTH > viewportWidth
+    ? mousePosition.x - PREVIEW_WIDTH - PREVIEW_OFFSET
+    : mousePosition.x + PREVIEW_OFFSET;
 
   return (
     <div className="min-h-screen bg-[#fafafa]" ref={containerRef}>
@@ -173,9 +202,8 @@ export default function Home() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed pointer-events-none z-50"
             style={{
-              left: mousePosition.x + 20,
-              top: mousePosition.y - 100,
-              transform: "translateY(-50%)",
+              left: previewLeft,
+              top: previewTop,
             }}
           >
             <div
