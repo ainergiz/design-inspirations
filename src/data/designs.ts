@@ -29,4 +29,11 @@ export const designs: Design[] = [
     description: "Subscription management cards with payment reminders",
     tags: ["Card", "Finance", "Dashboard"],
   },
+  {
+    id: "mood-slider",
+    number: "04",
+    title: "Mood Slider",
+    description: "Interactive mood selector with morphing blob animation",
+    tags: ["Interactive", "Animation", "Gesture"],
+  },
 ];

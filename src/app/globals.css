@@ -82,7 +82,15 @@ body {
 ::view-transition-old(bills-payments-light-panel),
 ::view-transition-new(bills-payments-light-panel),
 ::view-transition-old(bills-payments-dark-panel),
-::view-transition-new(bills-payments-dark-panel) {
+::view-transition-new(bills-payments-dark-panel),
+::view-transition-old(mood-slider-light),
+::view-transition-new(mood-slider-light),
+::view-transition-old(mood-slider-dark),
+::view-transition-new(mood-slider-dark),
+::view-transition-old(mood-slider-light-panel),
+::view-transition-new(mood-slider-light-panel),
+::view-transition-old(mood-slider-dark-panel),
+::view-transition-new(mood-slider-dark-panel) {
   animation-duration: 300ms;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -114,7 +122,15 @@ body {
   ::view-transition-old(bills-payments-light-panel),
   ::view-transition-new(bills-payments-light-panel),
   ::view-transition-old(bills-payments-dark-panel),
-  ::view-transition-new(bills-payments-dark-panel) {
+  ::view-transition-new(bills-payments-dark-panel),
+  ::view-transition-old(mood-slider-light),
+  ::view-transition-new(mood-slider-light),
+  ::view-transition-old(mood-slider-dark),
+  ::view-transition-new(mood-slider-dark),
+  ::view-transition-old(mood-slider-light-panel),
+  ::view-transition-new(mood-slider-light-panel),
+  ::view-transition-old(mood-slider-dark-panel),
+  ::view-transition-new(mood-slider-dark-panel) {
     animation: none;
   }
 }
