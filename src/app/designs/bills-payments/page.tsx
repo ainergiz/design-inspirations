@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect, ViewTransition } from "react";
-import Link from "next/link";
 import { DM_Sans } from "next/font/google";
-import { ArrowLeft, Bell, Code, Clock, MoreVertical, Pause, X } from "lucide-react";
+import { Bell, Clock, MoreVertical, Pause, X } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -479,33 +479,14 @@ function BillsPaymentsDark() {
 export default function BillsPaymentsPage() {
   return (
     <div className={`min-h-screen ${dmSans.className}`}>
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="text-zinc-400 hover:text-zinc-600 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
-            <h1 className="text-base font-medium text-zinc-900">
-              Bills & Payments
-            </h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/ainergiz/design-inspirations/blob/main/src/app/designs/bills-payments/page.tsx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg transition-colors"
-            >
-              <Code className="w-4 h-4" />
-              <span className="hidden sm:inline">Code</span>
-            </a>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        title="Bills & Payments"
+        codePath="designs/bills-payments/page.tsx"
+        inspiration={{
+          handle: "sajon_co",
+          imageUrl: "https://pbs.twimg.com/profile_images/1488282845894578176/ET7UneSW_400x400.jpg",
+        }}
+      />
 
       {/* Split layout */}
       <div className="flex flex-col md:flex-row min-h-screen pt-[57px]">

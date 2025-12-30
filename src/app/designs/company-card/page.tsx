@@ -384,7 +384,7 @@ export default function CompanyCardPage() {
             >
               <span className="hidden sm:inline text-zinc-400">Inspired from</span>
               <Image
-                src="https://unavatar.io/x/disarto_max"
+                src="https://pbs.twimg.com/profile_images/1897392722601816064/BMTvrGgC_400x400.jpg"
                 alt="Maxim Kuznetsov"
                 width={24}
                 height={24}
