@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect, ViewTransition } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { DM_Sans } from "next/font/google";
-import { ArrowLeft, ExternalLink, Code, Star, Wifi, Flame, TreePine, Car, UtensilsCrossed, Dog, Mountain, MapPin } from "lucide-react";
+import { Star, Wifi, Flame, TreePine, Car, UtensilsCrossed, Dog, Mountain, MapPin } from "lucide-react";
+import { PageHeader } from "@/components/PageHeader";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -267,50 +267,14 @@ function HotelCardDark() {
 export default function HotelCardPage() {
   return (
     <div className={`min-h-screen ${dmSans.className}`}>
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link
-              href="/"
-              className="text-zinc-400 hover:text-zinc-600 transition-colors"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Link>
-            <h1 className="text-base font-medium text-zinc-900">
-              Hotel Booking Card
-            </h1>
-          </div>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/ainergiz/design-inspirations/blob/main/src/app/designs/hotel-card/page.tsx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg transition-colors"
-            >
-              <Code className="w-4 h-4" />
-              <span className="hidden sm:inline">Code</span>
-            </a>
-            <a
-              href="https://x.com/loseva_pro"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
-            >
-              <span className="hidden sm:inline text-zinc-400">Inspired from</span>
-              <Image
-                src="https://pbs.twimg.com/profile_images/1925206450499919872/j_t5vP4l_400x400.jpg"
-                alt="loseva_pro"
-                width={24}
-                height={24}
-                className="w-6 h-6 rounded-full"
-              />
-              <span className="font-medium text-zinc-700">@loseva_pro</span>
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </div>
-        </div>
-      </header>
+      <PageHeader
+        title="Hotel Booking Card"
+        codePath="designs/hotel-card/page.tsx"
+        inspiration={{
+          handle: "loseva_pro",
+          imageUrl: "https://pbs.twimg.com/profile_images/1925206450499919872/j_t5vP4l_400x400.jpg",
+        }}
+      />
 
       {/* Split layout */}
       <div className="flex flex-col md:flex-row min-h-screen pt-[57px]">

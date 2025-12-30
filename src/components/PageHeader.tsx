@@ -41,15 +41,15 @@ function DesignDropdown({
   return (
     <div
       ref={menuRef}
-      className="absolute left-0 top-full mt-1 z-30 rounded-lg shadow-lg border bg-white border-zinc-200 min-w-[240px] py-1 overflow-hidden"
+      className="absolute left-0 top-full mt-1 z-30 rounded-xl shadow-xl border bg-white/80 backdrop-blur-xl border-white/40 min-w-[240px] py-1 overflow-hidden"
     >
       {designs.map((design) => (
         <Link
           key={design.id}
           href={`/designs/${design.id}`}
-          className={`flex items-center gap-3 w-full px-3 py-2.5 text-sm transition-colors hover:bg-zinc-50 ${
+          className={`flex items-center gap-3 w-full px-3 py-2.5 text-sm transition-colors hover:bg-white/60 ${
             design.id === currentDesignId
-              ? "text-zinc-900 bg-zinc-50"
+              ? "text-zinc-900 bg-white/50"
               : "text-zinc-600"
           }`}
           onClick={(e) => {
@@ -79,68 +79,110 @@ export function PageHeader({ title, codePath, inspiration }: PageHeaderProps) {
   const twitterUrl = `https://x.com/${inspiration.handle}`;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+    <>
+      {/* Top Header - Glassmorphism */}
+      <header className="fixed top-0 left-0 right-0 z-20 border-b border-white/30 bg-white/60 backdrop-blur-xl shadow-sm shadow-black/5">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 py-2 sm:py-3 flex items-center justify-between relative">
+          {/* Back button - big hit slop */}
           <Link
             href="/"
-            className="p-2 -m-2 text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors"
+            className="p-3 sm:p-2 text-zinc-400 hover:text-zinc-600 hover:bg-white/50 rounded-xl transition-colors z-10"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <div className="relative">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setDropdownOpen(!dropdownOpen);
-              }}
-              className="flex items-center gap-1.5 px-2 py-1.5 -mx-2 -my-1.5 rounded-lg hover:bg-zinc-100 transition-colors cursor-pointer"
+
+          {/* Centered title with dropdown - big hit slop */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="relative pointer-events-auto">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setDropdownOpen(!dropdownOpen);
+                }}
+                className="flex items-center gap-1.5 px-4 py-3 sm:px-3 sm:py-2 rounded-xl hover:bg-white/50 transition-colors cursor-pointer"
+              >
+                <h1 className="text-base font-medium text-zinc-900">{title}</h1>
+                <ChevronDown
+                  className={`w-4 h-4 text-zinc-400 transition-transform ${
+                    dropdownOpen ? "rotate-180" : ""
+                  }`}
+                  strokeWidth={2}
+                />
+              </button>
+              {dropdownOpen && (
+                <DesignDropdown
+                  currentDesignId={currentDesignId}
+                  onClose={() => setDropdownOpen(false)}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* Desktop actions - hidden on mobile */}
+          <div className="hidden md:flex items-center gap-4 z-10">
+            <a
+              href={codeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-700 hover:bg-white/50 rounded-lg transition-colors"
             >
-              <h1 className="text-base font-medium text-zinc-900">{title}</h1>
-              <ChevronDown
-                className={`w-4 h-4 text-zinc-400 transition-transform ${
-                  dropdownOpen ? "rotate-180" : ""
-                }`}
-                strokeWidth={2}
+              <Code className="w-4 h-4" />
+              <span>Code</span>
+            </a>
+            <a
+              href={twitterUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+            >
+              <span className="text-zinc-400">Inspired:</span>
+              <Image
+                src={inspiration.imageUrl}
+                alt={inspiration.handle}
+                width={24}
+                height={24}
+                className="w-6 h-6 rounded-full ring-2 ring-white/50"
               />
-            </button>
-            {dropdownOpen && (
-              <DesignDropdown
-                currentDesignId={currentDesignId}
-                onClose={() => setDropdownOpen(false)}
-              />
-            )}
+              <span className="font-medium text-zinc-700">@{inspiration.handle}</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
-        <div className="flex items-center gap-4">
+      </header>
+
+      {/* Mobile Bottom Tab Bar - Glassmorphism */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-20 border-t border-white/30 bg-white/70 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+        <div className="flex items-stretch pb-[env(safe-area-inset-bottom)]">
           <a
             href={codeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 rounded-lg transition-colors"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 text-zinc-500 hover:text-zinc-700 hover:bg-white/40 active:bg-white/60 transition-colors"
           >
-            <Code className="w-4 h-4" />
-            <span className="hidden sm:inline">Code</span>
+            <Code className="w-5 h-5" />
+            <span className="text-xs font-medium">Code</span>
           </a>
+          <div className="w-px bg-zinc-200/50 my-2" />
           <a
             href={twitterUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 transition-colors"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 text-zinc-500 hover:text-zinc-700 hover:bg-white/40 active:bg-white/60 transition-colors"
           >
-            <span className="hidden sm:inline text-zinc-400">Inspired from</span>
             <Image
               src={inspiration.imageUrl}
               alt={inspiration.handle}
-              width={24}
-              height={24}
-              className="w-6 h-6 rounded-full"
+              width={20}
+              height={20}
+              className="w-5 h-5 rounded-full ring-1 ring-zinc-200"
             />
-            <span className="font-medium text-zinc-700">@{inspiration.handle}</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <span className="text-xs">
+              <span className="text-zinc-400">Inspired: </span>
+              <span className="font-medium">@{inspiration.handle}</span>
+            </span>
           </a>
         </div>
-      </div>
-    </header>
+      </nav>
+    </>
   );
 }
