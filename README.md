@@ -19,6 +19,7 @@ I find myself bookmarking dozens of incredible pages, components, and prototypes
 - **React 19** with ViewTransition API
 - **Tailwind CSS v4**
 - **TypeScript**
+- **Bun** as the package manager and runtime
 
 ## Skills for AI Agents
 
