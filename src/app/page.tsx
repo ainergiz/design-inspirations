@@ -7,6 +7,7 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { CompanyCardPreview } from "@/components/previews/CompanyCardPreview";
 import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 import { BillsPaymentsPreview } from "@/components/previews/BillsPaymentsPreview";
+import { MoodSliderPreview } from "@/components/previews/MoodSliderPreview";
 import { designs as designsData } from "@/data/designs";
 
 // Preview dimensions for viewport boundary detection
@@ -19,6 +20,7 @@ const previewComponents: Record<string, React.ComponentType> = {
   "company-card": CompanyCardPreview,
   "hotel-card": HotelCardPreview,
   "bills-payments": BillsPaymentsPreview,
+  "mood-slider": MoodSliderPreview,
 };
 
 // Design data with preview components
@@ -177,7 +179,7 @@ export default function Home() {
         {/* Coming soon placeholder */}
         <div className="py-8 border-b border-zinc-200">
           <div className="flex items-start gap-6">
-            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">04</span>
+            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">05</span>
             <div className="flex-1">
               <h2 className="text-xl font-medium text-zinc-300 mb-2">
                 More designs coming soon...
