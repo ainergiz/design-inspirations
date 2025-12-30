@@ -7,39 +7,25 @@ import { ArrowUpRight, Github } from "lucide-react";
 import { CompanyCardPreview } from "@/components/previews/CompanyCardPreview";
 import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 import { BillsPaymentsPreview } from "@/components/previews/BillsPaymentsPreview";
+import { designs as designsData } from "@/data/designs";
 
 // Preview dimensions for viewport boundary detection
 const PREVIEW_HEIGHT = 400;
 const PREVIEW_WIDTH = 320;
 const PREVIEW_OFFSET = 20;
 
+// Preview components map
+const previewComponents: Record<string, React.ComponentType> = {
+  "company-card": CompanyCardPreview,
+  "hotel-card": HotelCardPreview,
+  "bills-payments": BillsPaymentsPreview,
+};
+
 // Design data with preview components
-const designs = [
-  {
-    id: "company-card",
-    number: "01",
-    title: "Company Info Card",
-    description: "Expandable card with company metrics and details",
-    tags: ["Card", "Dashboard", "Metrics"],
-    PreviewComponent: CompanyCardPreview,
-  },
-  {
-    id: "hotel-card",
-    number: "02",
-    title: "Hotel Booking Card",
-    description: "Hotel card with amenities, pricing, and booking button",
-    tags: ["Card", "Booking", "Travel"],
-    PreviewComponent: HotelCardPreview,
-  },
-  {
-    id: "bills-payments",
-    number: "03",
-    title: "Bills & Payments",
-    description: "Subscription management cards with payment reminders",
-    tags: ["Card", "Finance", "Dashboard"],
-    PreviewComponent: BillsPaymentsPreview,
-  },
-];
+const designs = designsData.map((design) => ({
+  ...design,
+  PreviewComponent: previewComponents[design.id],
+}));
 
 // Touch device detection using useSyncExternalStore for SSR safety
 const subscribeToNothing = () => () => {};

@@ -1,6 +1,11 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, Code, ExternalLink } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ArrowLeft, Code, ExternalLink, ChevronDown, Check } from "lucide-react";
+import { designs } from "@/data/designs";
 
 interface InspirationProps {
   handle: string;
@@ -13,21 +18,99 @@ interface PageHeaderProps {
   inspiration: InspirationProps;
 }
 
+function DesignDropdown({
+  currentDesignId,
+  onClose,
+}: {
+  currentDesignId: string;
+  onClose: () => void;
+}) {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    }
+    // Use "click" not "mousedown" to allow stopPropagation on trigger
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [onClose]);
+
+  return (
+    <div
+      ref={menuRef}
+      className="absolute left-0 top-full mt-1 z-30 rounded-lg shadow-lg border bg-white border-zinc-200 min-w-[240px] py-1 overflow-hidden"
+    >
+      {designs.map((design) => (
+        <Link
+          key={design.id}
+          href={`/designs/${design.id}`}
+          className={`flex items-center gap-3 w-full px-3 py-2.5 text-sm transition-colors hover:bg-zinc-50 ${
+            design.id === currentDesignId
+              ? "text-zinc-900 bg-zinc-50"
+              : "text-zinc-600"
+          }`}
+          onClick={(e) => {
+            e.stopPropagation();
+            onClose();
+          }}
+        >
+          <span className="text-xs font-mono text-zinc-400 w-5">
+            {design.number}
+          </span>
+          <span className="flex-1 font-medium">{design.title}</span>
+          {design.id === currentDesignId && (
+            <Check className="w-4 h-4 text-zinc-500" strokeWidth={2} />
+          )}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function PageHeader({ title, codePath, inspiration }: PageHeaderProps) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const pathname = usePathname();
+  const currentDesignId = pathname.split("/").pop() || "";
+
   const codeUrl = `https://github.com/ainergiz/design-inspirations/blob/main/src/app/${codePath}`;
   const twitterUrl = `https://x.com/${inspiration.handle}`;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           <Link
             href="/"
-            className="text-zinc-400 hover:text-zinc-600 transition-colors"
+            className="p-2 -m-2 text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-base font-medium text-zinc-900">{title}</h1>
+          <div className="relative">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setDropdownOpen(!dropdownOpen);
+              }}
+              className="flex items-center gap-1.5 px-2 py-1.5 -mx-2 -my-1.5 rounded-lg hover:bg-zinc-100 transition-colors cursor-pointer"
+            >
+              <h1 className="text-base font-medium text-zinc-900">{title}</h1>
+              <ChevronDown
+                className={`w-4 h-4 text-zinc-400 transition-transform ${
+                  dropdownOpen ? "rotate-180" : ""
+                }`}
+                strokeWidth={2}
+              />
+            </button>
+            {dropdownOpen && (
+              <DesignDropdown
+                currentDesignId={currentDesignId}
+                onClose={() => setDropdownOpen(false)}
+              />
+            )}
+          </div>
         </div>
         <div className="flex items-center gap-4">
           <a
