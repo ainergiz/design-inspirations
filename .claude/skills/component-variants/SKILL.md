@@ -16,6 +16,8 @@ Create matching light and dark variants of UI components using a systematic colo
 
 ## Color Token Mapping
 
+### Basic Tokens
+
 | Semantic Use | Light Mode | Dark Mode |
 |-------------|------------|-----------|
 | Card background | `bg-[#f8f8f8]` | `bg-zinc-800` |
@@ -31,6 +33,29 @@ Create matching light and dark variants of UI components using a systematic colo
 | Accent text | `text-green-700` | `text-green-400` |
 | Shadow | `shadow-zinc-200/50` | `shadow-black/30` |
 | Hover background | `hover:bg-zinc-100/50` | `hover:bg-zinc-700/30` |
+
+### Gradient & Nested Card Tokens
+
+| Semantic Use | Light Mode | Dark Mode |
+|-------------|------------|-----------|
+| Outer card gradient | `bg-gradient-to-b from-[#e8e8ea] to-[#dcdce0]` | `bg-gradient-to-b from-zinc-700 to-zinc-800` |
+| Outer card border | `border-white/60` | `border-zinc-600/40` |
+| Outer card shadow | `shadow-xl shadow-zinc-400/30` | `shadow-xl shadow-black/50` |
+| Inner media border | `border-white/40` | `border-zinc-600/30` |
+
+### Badge Tokens
+
+| Semantic Use | Light Mode | Dark Mode |
+|-------------|------------|-----------|
+| Success badge bg | `bg-[#d4f5d4]` | `bg-emerald-900/40` |
+| Success badge text | `text-zinc-700` | `text-emerald-400` |
+
+### Separator Tokens
+
+| Semantic Use | Light Mode | Dark Mode |
+|-------------|------------|-----------|
+| Dot separator | `text-zinc-300` | `text-zinc-600` |
+| Border separator | `border-zinc-300` | `border-zinc-700` |
 
 ## Implementation Template
 

@@ -154,6 +154,36 @@ Prevent clicks on interactive content from toggling:
 >
 ```
 
+**Important**: Always add `stopPropagation` to:
+- Links (`<a>`)
+- Buttons that perform actions other than toggling
+- Form inputs
+- Any interactive element that shouldn't trigger expand/collapse
+
+```tsx
+// Full example with multiple interactive elements
+<div className="overflow-hidden">
+  <div className="px-4 py-4 border-t">
+    <a
+      href="https://example.com"
+      onClick={(e) => e.stopPropagation()}
+      className="text-blue-500 hover:underline"
+    >
+      External link
+    </a>
+
+    <button
+      onClick={(e) => {
+        e.stopPropagation();
+        // Handle button action
+      }}
+    >
+      Action Button
+    </button>
+  </div>
+</div>
+```
+
 ## Checklist
 
 - [ ] `overflow-hidden` on inner wrapper (required for animation)

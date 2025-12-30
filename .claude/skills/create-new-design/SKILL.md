@@ -155,6 +155,40 @@ Add ViewTransition CSS for new design in `src/app/globals.css`:
 </a>
 ```
 
+## Step 5: Custom Animations (if needed)
+
+If your component has custom animations (e.g., carousels, progress bars), add keyframes to `src/app/globals.css`:
+
+```css
+/* Example: Carousel progress animation */
+@keyframes carousel-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-carousel-progress {
+  animation: carousel-progress linear forwards;
+}
+```
+
+Common animation patterns:
+- **Progress bars**: `scaleX(0)` to `scaleX(1)` with `origin-left`
+- **Fade in**: `opacity: 0` to `opacity: 1`
+- **Slide up**: `translateY(10px)` to `translateY(0)`
+
+## Related Skills
+
+Consider using these patterns in your design:
+- **component-variants**: Color token mapping for light/dark modes
+- **expandable-card**: Smooth expand/collapse with grid-rows
+- **image-carousel**: Auto-advance carousel with touch support
+- **glassmorphism**: Frosted glass overlay effects
+- **nested-card**: Outer gradient with inner content card
+
 ## Checklist
 
 - [ ] Preview component created with correct ViewTransition names
@@ -162,6 +196,8 @@ Add ViewTransition CSS for new design in `src/app/globals.css`:
 - [ ] Code button links to component file on GitHub
 - [ ] Design entry added to main page designs array
 - [ ] globals.css updated with ViewTransition CSS
+- [ ] Custom keyframes added to globals.css (if needed)
 - [ ] Attribution included (if available)
 - [ ] Both light and dark variants implemented
 - [ ] Components follow existing code style
+- [ ] Touch interactions considered for mobile
