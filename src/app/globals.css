@@ -44,6 +44,20 @@ body {
   }
 }
 
+/* Carousel progress animation */
+@keyframes carousel-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.animate-carousel-progress {
+  animation: carousel-progress linear forwards;
+}
+
 /* Shared element transitions - morph effect */
 ::view-transition-old(company-card-light),
 ::view-transition-new(company-card-light),
@@ -52,7 +66,15 @@ body {
 ::view-transition-old(company-card-light-panel),
 ::view-transition-new(company-card-light-panel),
 ::view-transition-old(company-card-dark-panel),
-::view-transition-new(company-card-dark-panel) {
+::view-transition-new(company-card-dark-panel),
+::view-transition-old(hotel-card-light),
+::view-transition-new(hotel-card-light),
+::view-transition-old(hotel-card-dark),
+::view-transition-new(hotel-card-dark),
+::view-transition-old(hotel-card-light-panel),
+::view-transition-new(hotel-card-light-panel),
+::view-transition-old(hotel-card-dark-panel),
+::view-transition-new(hotel-card-dark-panel) {
   animation-duration: 300ms;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -68,7 +90,15 @@ body {
   ::view-transition-old(company-card-light-panel),
   ::view-transition-new(company-card-light-panel),
   ::view-transition-old(company-card-dark-panel),
-  ::view-transition-new(company-card-dark-panel) {
+  ::view-transition-new(company-card-dark-panel),
+  ::view-transition-old(hotel-card-light),
+  ::view-transition-new(hotel-card-light),
+  ::view-transition-old(hotel-card-dark),
+  ::view-transition-new(hotel-card-dark),
+  ::view-transition-old(hotel-card-light-panel),
+  ::view-transition-new(hotel-card-light-panel),
+  ::view-transition-old(hotel-card-dark-panel),
+  ::view-transition-new(hotel-card-dark-panel) {
     animation: none;
   }
 }
