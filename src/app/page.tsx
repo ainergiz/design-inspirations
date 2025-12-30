@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Github } from "lucide-react";
@@ -41,12 +41,24 @@ const designs = [
   },
 ];
 
+// Touch device detection using useSyncExternalStore for SSR safety
+const subscribeToNothing = () => () => {};
+const getIsTouchDevice = () =>
+  'ontouchstart' in window ||
+  navigator.maxTouchPoints > 0 ||
+  window.matchMedia('(pointer: coarse)').matches;
+const getServerSnapshot = () => false;
+
 export default function Home() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const isTouchDevice = useSyncExternalStore(subscribeToNothing, getIsTouchDevice, getServerSnapshot);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Skip mouse tracking on touch devices
+    if (isTouchDevice) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
@@ -62,7 +74,7 @@ export default function Home() {
       container.addEventListener("mousemove", handleMouseMove);
       return () => container.removeEventListener("mousemove", handleMouseMove);
     }
-  }, []);
+  }, [isTouchDevice]);
 
   const hoveredDesign = designs.find((d) => d.id === hoveredId);
 
@@ -123,8 +135,8 @@ export default function Home() {
               key={design.id}
               href={`/designs/${design.id}`}
               className="group block"
-              onMouseEnter={() => setHoveredId(design.id)}
-              onMouseLeave={() => setHoveredId(null)}
+              onMouseEnter={isTouchDevice ? undefined : () => setHoveredId(design.id)}
+              onMouseLeave={isTouchDevice ? undefined : () => setHoveredId(null)}
             >
               <article className="py-8 border-b border-zinc-200 transition-colors hover:bg-zinc-50/50">
                 <div className="flex items-start gap-6">
@@ -192,9 +204,9 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Floating preview */}
+      {/* Floating preview - disabled on touch devices */}
       <AnimatePresence>
-        {hoveredId && hoveredDesign && (
+        {!isTouchDevice && hoveredId && hoveredDesign && (
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
