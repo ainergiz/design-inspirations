@@ -74,7 +74,15 @@ body {
 ::view-transition-old(hotel-card-light-panel),
 ::view-transition-new(hotel-card-light-panel),
 ::view-transition-old(hotel-card-dark-panel),
-::view-transition-new(hotel-card-dark-panel) {
+::view-transition-new(hotel-card-dark-panel),
+::view-transition-old(bills-payments-light),
+::view-transition-new(bills-payments-light),
+::view-transition-old(bills-payments-dark),
+::view-transition-new(bills-payments-dark),
+::view-transition-old(bills-payments-light-panel),
+::view-transition-new(bills-payments-light-panel),
+::view-transition-old(bills-payments-dark-panel),
+::view-transition-new(bills-payments-dark-panel) {
   animation-duration: 300ms;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -98,7 +106,15 @@ body {
   ::view-transition-old(hotel-card-light-panel),
   ::view-transition-new(hotel-card-light-panel),
   ::view-transition-old(hotel-card-dark-panel),
-  ::view-transition-new(hotel-card-dark-panel) {
+  ::view-transition-new(hotel-card-dark-panel),
+  ::view-transition-old(bills-payments-light),
+  ::view-transition-new(bills-payments-light),
+  ::view-transition-old(bills-payments-dark),
+  ::view-transition-new(bills-payments-dark),
+  ::view-transition-old(bills-payments-light-panel),
+  ::view-transition-new(bills-payments-light-panel),
+  ::view-transition-old(bills-payments-dark-panel),
+  ::view-transition-new(bills-payments-dark-panel) {
     animation: none;
   }
 }
