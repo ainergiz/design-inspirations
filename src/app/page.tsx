@@ -118,7 +118,7 @@ export default function Home() {
       </div>
 
       {/* Designs list */}
-      <main className="max-w-4xl mx-auto px-8 pb-24">
+      <main className="max-w-4xl mx-auto px-8 pb-96">
         <div className="border-t border-zinc-200">
           {designs.map((design) => (
             <Link
