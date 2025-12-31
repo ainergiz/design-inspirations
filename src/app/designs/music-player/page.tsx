@@ -584,9 +584,9 @@ export default function MusicPlayerPage() {
         title="Vinyl Music Player"
         codePath="designs/music-player/page.tsx"
         inspiration={{
-          handle: "philipcdavis",
+          handle: "ilyamiskov",
           imageUrl:
-            "https://pbs.twimg.com/profile_images/1572984578057531393/K3S2VNGD_400x400.jpg",
+            "https://pbs.twimg.com/profile_images/2003225762371948545/JXTEDtQ9_400x400.jpg",
         }}
       />
 
