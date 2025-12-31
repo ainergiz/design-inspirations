@@ -188,6 +188,8 @@ Consider using these patterns in your design:
 - **image-carousel**: Auto-advance carousel with touch support
 - **glassmorphism**: Frosted glass overlay effects
 - **nested-card**: Outer gradient with inner content card
+- **stacked-cards**: Fanned/cascading card stacks with hover lift
+- **dropdown-menu**: Click-outside detection and z-index stacking
 
 ## Checklist
 

@@ -8,6 +8,7 @@ import { CompanyCardPreview } from "@/components/previews/CompanyCardPreview";
 import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 import { BillsPaymentsPreview } from "@/components/previews/BillsPaymentsPreview";
 import { MoodSliderPreview } from "@/components/previews/MoodSliderPreview";
+import { MusicPlayerPreview } from "@/components/previews/MusicPlayerPreview";
 import { designs as designsData } from "@/data/designs";
 
 // Preview dimensions for viewport boundary detection
@@ -21,6 +22,7 @@ const previewComponents: Record<string, React.ComponentType> = {
   "hotel-card": HotelCardPreview,
   "bills-payments": BillsPaymentsPreview,
   "mood-slider": MoodSliderPreview,
+  "music-player": MusicPlayerPreview,
 };
 
 // Design data with preview components
@@ -179,7 +181,7 @@ export default function Home() {
         {/* Coming soon placeholder */}
         <div className="py-8 border-b border-zinc-200">
           <div className="flex items-start gap-6">
-            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">05</span>
+            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">06</span>
             <div className="flex-1">
               <h2 className="text-xl font-medium text-zinc-300 mb-2">
                 More designs coming soon...

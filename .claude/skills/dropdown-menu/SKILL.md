@@ -230,6 +230,32 @@ className="absolute right-0 bottom-full mb-1"
 className="absolute left-0 bottom-full mb-1"
 ```
 
+## Related: Tooltips in Stacked Items
+
+When showing tooltips on items that have varying z-indexes (like stacked cards), the tooltip will be trapped in its parent's stacking context. The solution is to render the tooltip **outside** the item loop as a sibling element, calculating its position based on which item is hovered.
+
+See the **stacked-cards** skill for the full pattern.
+
+```tsx
+// WRONG - Tooltip trapped in parent's z-index
+{items.map((item, i) => (
+  <div style={{ zIndex: items.length - i }}>
+    <Card />
+    {hovered === i && <Tooltip />}  {/* Trapped! */}
+  </div>
+))}
+
+// CORRECT - Tooltip outside the loop
+{items.map((item, i) => (
+  <div style={{ zIndex: items.length - i }}>
+    <Card />
+  </div>
+))}
+{hovered !== null && (
+  <Tooltip style={{ /* calculated position */ }} />
+)}
+```
+
 ## Checklist
 
 - [ ] Click-outside uses `click` event (not `mousedown`)
@@ -239,3 +265,4 @@ className="absolute left-0 bottom-full mb-1"
 - [ ] Menu items have `stopPropagation()` in onClick
 - [ ] Trigger wrapper has `relative` positioning
 - [ ] Dropdown has `absolute` positioning with `top-full` or `bottom-full`
+- [ ] For stacked items, tooltip rendered outside the loop (see stacked-cards skill)

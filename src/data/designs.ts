@@ -36,4 +36,11 @@ export const designs: Design[] = [
     description: "Interactive mood selector with morphing blob animation",
     tags: ["Interactive", "Animation", "Gesture"],
   },
+  {
+    id: "music-player",
+    number: "05",
+    title: "Vinyl Music Player",
+    description: "Music player with album browser and spinning vinyl animation",
+    tags: ["Media", "Audio", "Animation"],
+  },
 ];
