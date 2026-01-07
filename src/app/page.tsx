@@ -9,6 +9,7 @@ import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 import { BillsPaymentsPreview } from "@/components/previews/BillsPaymentsPreview";
 import { MoodSliderPreview } from "@/components/previews/MoodSliderPreview";
 import { MusicPlayerPreview } from "@/components/previews/MusicPlayerPreview";
+import { ExpandableDrawerPreview } from "@/components/previews/ExpandableDrawerPreview";
 import { designs as designsData } from "@/data/designs";
 
 // Preview dimensions for viewport boundary detection
@@ -23,6 +24,7 @@ const previewComponents: Record<string, React.ComponentType> = {
   "bills-payments": BillsPaymentsPreview,
   "mood-slider": MoodSliderPreview,
   "music-player": MusicPlayerPreview,
+  "expandable-drawer": ExpandableDrawerPreview,
 };
 
 // Design data with preview components
@@ -34,15 +36,19 @@ const designs = designsData.map((design) => ({
 // Touch device detection using useSyncExternalStore for SSR safety
 const subscribeToNothing = () => () => {};
 const getIsTouchDevice = () =>
-  'ontouchstart' in window ||
+  "ontouchstart" in window ||
   navigator.maxTouchPoints > 0 ||
-  window.matchMedia('(pointer: coarse)').matches;
+  window.matchMedia("(pointer: coarse)").matches;
 const getServerSnapshot = () => false;
 
 export default function Home() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const isTouchDevice = useSyncExternalStore(subscribeToNothing, getIsTouchDevice, getServerSnapshot);
+  const isTouchDevice = useSyncExternalStore(
+    subscribeToNothing,
+    getIsTouchDevice,
+    getServerSnapshot
+  );
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -69,8 +75,10 @@ export default function Home() {
   const hoveredDesign = designs.find((d) => d.id === hoveredId);
 
   // Calculate optimal preview position with viewport boundary detection
-  const viewportHeight = typeof window !== "undefined" ? window.innerHeight : 800;
-  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
+  const viewportHeight =
+    typeof window !== "undefined" ? window.innerHeight : 800;
+  const viewportWidth =
+    typeof window !== "undefined" ? window.innerWidth : 1200;
   const spaceBelow = viewportHeight - mousePosition.y;
   const spaceAbove = mousePosition.y;
 
@@ -83,14 +91,18 @@ export default function Home() {
   } else {
     previewTop = Math.max(
       PREVIEW_OFFSET,
-      Math.min(mousePosition.y - PREVIEW_HEIGHT / 2, viewportHeight - PREVIEW_HEIGHT - PREVIEW_OFFSET)
+      Math.min(
+        mousePosition.y - PREVIEW_HEIGHT / 2,
+        viewportHeight - PREVIEW_HEIGHT - PREVIEW_OFFSET
+      )
     );
   }
 
   // Horizontal positioning: prefer right, flip left if overflow
-  const previewLeft = mousePosition.x + PREVIEW_OFFSET + PREVIEW_WIDTH > viewportWidth
-    ? mousePosition.x - PREVIEW_WIDTH - PREVIEW_OFFSET
-    : mousePosition.x + PREVIEW_OFFSET;
+  const previewLeft =
+    mousePosition.x + PREVIEW_OFFSET + PREVIEW_WIDTH > viewportWidth
+      ? mousePosition.x - PREVIEW_WIDTH - PREVIEW_OFFSET
+      : mousePosition.x + PREVIEW_OFFSET;
 
   return (
     <div className="min-h-screen bg-[#fafafa]" ref={containerRef}>
@@ -125,8 +137,12 @@ export default function Home() {
               key={design.id}
               href={`/designs/${design.id}`}
               className="group block"
-              onMouseEnter={isTouchDevice ? undefined : () => setHoveredId(design.id)}
-              onMouseLeave={isTouchDevice ? undefined : () => setHoveredId(null)}
+              onMouseEnter={
+                isTouchDevice ? undefined : () => setHoveredId(design.id)
+              }
+              onMouseLeave={
+                isTouchDevice ? undefined : () => setHoveredId(null)
+              }
             >
               <article className="py-8 border-b border-zinc-200 transition-colors hover:bg-zinc-50/50">
                 <div className="flex items-start gap-6">
@@ -169,7 +185,6 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -181,7 +196,7 @@ export default function Home() {
         {/* Coming soon placeholder */}
         <div className="py-8 border-b border-zinc-200">
           <div className="flex items-start gap-6">
-            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">06</span>
+            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">07</span>
             <div className="flex-1">
               <h2 className="text-xl font-medium text-zinc-300 mb-2">
                 More designs coming soon...
