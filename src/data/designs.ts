@@ -43,4 +43,11 @@ export const designs: Design[] = [
     description: "Music player with album browser and spinning vinyl animation",
     tags: ["Media", "Audio", "Animation"],
   },
+  {
+    id: "expandable-drawer",
+    number: "06",
+    title: "Expandable Drawer",
+    description: "Floating drawer with drag-to-close gesture and smooth animations",
+    tags: ["Interactive", "Gesture", "Drawer"],
+  },
 ];

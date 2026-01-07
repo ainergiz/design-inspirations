@@ -9,12 +9,13 @@ import { HotelCardPreview } from "@/components/previews/HotelCardPreview";
 import { BillsPaymentsPreview } from "@/components/previews/BillsPaymentsPreview";
 import { MoodSliderPreview } from "@/components/previews/MoodSliderPreview";
 import { MusicPlayerPreview } from "@/components/previews/MusicPlayerPreview";
+import { ExpandableDrawerPreview } from "@/components/previews/ExpandableDrawerPreview";
 import { designs as designsData } from "@/data/designs";
 
 // Preview dimensions for viewport boundary detection
-const PREVIEW_HEIGHT = 400;
-const PREVIEW_WIDTH = 320;
-const PREVIEW_OFFSET = 20;
+const PREVIEW_HEIGHT = 280;
+const PREVIEW_WIDTH = 420;
+const PREVIEW_OFFSET = 24;
 
 // Preview components map
 const previewComponents: Record<string, React.ComponentType> = {
@@ -23,6 +24,7 @@ const previewComponents: Record<string, React.ComponentType> = {
   "bills-payments": BillsPaymentsPreview,
   "mood-slider": MoodSliderPreview,
   "music-player": MusicPlayerPreview,
+  "expandable-drawer": ExpandableDrawerPreview,
 };
 
 // Design data with preview components
@@ -42,21 +44,30 @@ const getServerSnapshot = () => false;
 export default function Home() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [viewportSize, setViewportSize] = useState({ width: 1200, height: 800 });
   const isTouchDevice = useSyncExternalStore(subscribeToNothing, getIsTouchDevice, getServerSnapshot);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Track viewport size
+  useEffect(() => {
+    const updateViewport = () => {
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+    updateViewport();
+    window.addEventListener("resize", updateViewport);
+    return () => window.removeEventListener("resize", updateViewport);
+  }, []);
 
   useEffect(() => {
     // Skip mouse tracking on touch devices
     if (isTouchDevice) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setMousePosition({
-          x: e.clientX - rect.left,
-          y: e.clientY - rect.top,
-        });
-      }
+      // Use clientX/clientY directly since preview uses position:fixed (viewport-relative)
+      setMousePosition({
+        x: e.clientX,
+        y: e.clientY,
+      });
     };
 
     const container = containerRef.current;
@@ -69,25 +80,27 @@ export default function Home() {
   const hoveredDesign = designs.find((d) => d.id === hoveredId);
 
   // Calculate optimal preview position with viewport boundary detection
-  const viewportHeight = typeof window !== "undefined" ? window.innerHeight : 800;
-  const viewportWidth = typeof window !== "undefined" ? window.innerWidth : 1200;
+  const { width: viewportWidth, height: viewportHeight } = viewportSize;
   const spaceBelow = viewportHeight - mousePosition.y;
   const spaceAbove = mousePosition.y;
 
-  // Vertical positioning: prefer below, flip above if needed, clamp if limited
+  // Vertical positioning: prefer below cursor, flip above if needed
   let previewTop: number;
   if (spaceBelow >= PREVIEW_HEIGHT + PREVIEW_OFFSET) {
+    // Enough space below - show below cursor
     previewTop = mousePosition.y + PREVIEW_OFFSET;
   } else if (spaceAbove >= PREVIEW_HEIGHT + PREVIEW_OFFSET) {
+    // Not enough below, but enough above - show above cursor
     previewTop = mousePosition.y - PREVIEW_HEIGHT - PREVIEW_OFFSET;
   } else {
+    // Limited space - center vertically and clamp to viewport
     previewTop = Math.max(
       PREVIEW_OFFSET,
       Math.min(mousePosition.y - PREVIEW_HEIGHT / 2, viewportHeight - PREVIEW_HEIGHT - PREVIEW_OFFSET)
     );
   }
 
-  // Horizontal positioning: prefer right, flip left if overflow
+  // Horizontal positioning: prefer right of cursor, flip left if overflow
   const previewLeft = mousePosition.x + PREVIEW_OFFSET + PREVIEW_WIDTH > viewportWidth
     ? mousePosition.x - PREVIEW_WIDTH - PREVIEW_OFFSET
     : mousePosition.x + PREVIEW_OFFSET;
@@ -181,7 +194,7 @@ export default function Home() {
         {/* Coming soon placeholder */}
         <div className="py-8 border-b border-zinc-200">
           <div className="flex items-start gap-6">
-            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">06</span>
+            <span className="text-sm font-mono text-zinc-200 pt-1 w-8">07</span>
             <div className="flex-1">
               <h2 className="text-xl font-medium text-zinc-300 mb-2">
                 More designs coming soon...
