@@ -50,4 +50,11 @@ export const designs: Design[] = [
     description: "Floating drawer with drag-to-close gesture and smooth animations",
     tags: ["Interactive", "Gesture", "Drawer"],
   },
+  {
+    id: "ai-evals-card",
+    number: "07",
+    title: "AI Evals Card",
+    description: "Pokemon-style trading cards for AI model benchmarks with holographic effects",
+    tags: ["Card", "Animation", "Interactive"],
+  },
 ];

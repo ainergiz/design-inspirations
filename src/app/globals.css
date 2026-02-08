@@ -90,7 +90,15 @@ body {
 ::view-transition-old(mood-slider-light-panel),
 ::view-transition-new(mood-slider-light-panel),
 ::view-transition-old(mood-slider-dark-panel),
-::view-transition-new(mood-slider-dark-panel) {
+::view-transition-new(mood-slider-dark-panel),
+::view-transition-old(ai-evals-card-light),
+::view-transition-new(ai-evals-card-light),
+::view-transition-old(ai-evals-card-dark),
+::view-transition-new(ai-evals-card-dark),
+::view-transition-old(ai-evals-card-light-panel),
+::view-transition-new(ai-evals-card-light-panel),
+::view-transition-old(ai-evals-card-dark-panel),
+::view-transition-new(ai-evals-card-dark-panel) {
   animation-duration: 300ms;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -130,7 +138,15 @@ body {
   ::view-transition-old(mood-slider-light-panel),
   ::view-transition-new(mood-slider-light-panel),
   ::view-transition-old(mood-slider-dark-panel),
-  ::view-transition-new(mood-slider-dark-panel) {
+  ::view-transition-new(mood-slider-dark-panel),
+  ::view-transition-old(ai-evals-card-light),
+  ::view-transition-new(ai-evals-card-light),
+  ::view-transition-old(ai-evals-card-dark),
+  ::view-transition-new(ai-evals-card-dark),
+  ::view-transition-old(ai-evals-card-light-panel),
+  ::view-transition-new(ai-evals-card-light-panel),
+  ::view-transition-old(ai-evals-card-dark-panel),
+  ::view-transition-new(ai-evals-card-dark-panel) {
     animation: none;
   }
 }
